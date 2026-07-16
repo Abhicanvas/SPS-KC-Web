@@ -1,117 +1,109 @@
 import React from "react";
 import "./footer.css";
-import { Link } from "react-router-dom";
-import ReactDOM from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { SITE_CONFIG } from "../../config/siteConfig";
 
 const Footer = () => {
+  const importantLinks = [
+    { label: "Committee activities", href: "/#activities" },
+    { label: "Upcoming Events", href: "/events" },
+    { label: "Student Activities", href: "/sbc" },
+    { label: "Officers", href: "/team" },
+  ];
+
+  const companyLinks = [
+    { label: "About Us", href: "/#about" },
+    { label: "Gallery", href: "/#gallery" },
+    { label: "Events", href: "/events" },
+    { label: "Organizational Story", href: "/#vision" },
+  ];
+
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="contacts">
-          <div className="col">
-            <img src={SITE_CONFIG.LOGO_PATH} alt="" />
-            <div className="icons flex gap-4">
-              <a
-                href={SITE_CONFIG.SOCIAL_LINKS.FACEBOOK}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faFacebook} className="text-2xl" />
+    <footer className="footer" id="contact">
+      <div className="footer-shell">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <img src={SITE_CONFIG.LOGO_PATH} alt="IEEE SPS Kerala Chapter" />
+            <p>
+              IEEE Signal Processing Society Kerala Chapter advances technical excellence, collaboration, and
+              leadership across the state.
+            </p>
+            <div className="footer-socials">
+              <a href={SITE_CONFIG.SOCIAL_LINKS.FACEBOOK} target="_blank" rel="noreferrer" aria-label="Facebook">
+                <FontAwesomeIcon icon={faFacebookF} />
               </a>
-              <a
-                href={SITE_CONFIG.SOCIAL_LINKS.INSTAGRAM}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faInstagram} className="text-2xl" />
+              <a href="https://x.com/ieeespskerala" target="_blank" rel="noreferrer" aria-label="X">
+                <FontAwesomeIcon icon={faXTwitter} />
               </a>
-              <a
-                href={SITE_CONFIG.SOCIAL_LINKS.LINKEDIN}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faLinkedin} className="text-2xl" />
+              <a href={SITE_CONFIG.SOCIAL_LINKS.INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram">
+                <FontAwesomeIcon icon={faInstagram} />
               </a>
-              <a
-                href={SITE_CONFIG.SOCIAL_LINKS.WHATSAPP}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faWhatsapp} className="text-2xl" />
-              </a>
-              <a
-                href={SITE_CONFIG.SOCIAL_LINKS.DISCORD}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faDiscord} className="text-2xl" />
+              <a href={SITE_CONFIG.SOCIAL_LINKS.LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <FontAwesomeIcon icon={faLinkedinIn} />
               </a>
             </div>
           </div>
-          <ul className="main-links">
-            <li style={{ fontWeight: 400, marginBottom: 20 }}>Company</li>
-            <li>
-              <a href="/">Home</a>{" "}
-            </li>
-            <li>
-              <a href="/#about">About</a>{" "}
-            </li>
-            <li>
-              <Link to="/events">Events</Link>{" "}
-            </li>
-          </ul>
-          <ul className="other-links">
-            <li style={{ fontWeight: 400, marginBottom: 20 }}>Other Links</li>
-            <li>
-              <a href="https://www.ieee.org/">IEEE</a>
-            </li>
-            <li>
-              <a href="https://signalprocessingsociety.org/">
-                Signal Processing Society
-              </a>
-            </li>
-            <li>
-              <a href="https://ieeekerala.org/">IEEE Kerala Section</a>
-            </li>
-          </ul>
-          <ul className="contact">
-            <li style={{ fontWeight: 400, marginBottom: 20 }}>Contact</li>
-            <li>{SITE_CONFIG.CONTACT.EMAIL}</li>
-            <li>{SITE_CONFIG.CONTACT.PHONE}</li>
-            <li>
-              <p>
-                {SITE_CONFIG.CONTACT.ADDRESS.STREET.map((line, i) => (
-                    <span key={i}>
-                      {line}
-                      <br />
-                    </span>
-                  ))}
-                <br />
-                {SITE_CONFIG.CONTACT.ADDRESS.CITY}
-                <br />
-                {SITE_CONFIG.CONTACT.ADDRESS.STATE}{" "}
-                {SITE_CONFIG.CONTACT.ADDRESS.POSTAL_CODE}
-              </p>
-            </li>
-            <li></li>
-          </ul>
+
+          <div className="footer-columns">
+            <div>
+              <h3>Important Links</h3>
+              <ul>
+                {importantLinks.map((item) => (
+                  <li key={item.label}>
+                    <a href={item.href}>{item.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3>Company</h3>
+              <ul>
+                {companyLinks.map((item) => (
+                  <li key={item.label}>
+                    <a href={item.href}>{item.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3>Contact</h3>
+              <ul className="contact-list">
+                <li>
+                  <Mail size={16} />
+                  <a href={`mailto:${SITE_CONFIG.CONTACT.EMAIL}`}>{SITE_CONFIG.CONTACT.EMAIL}</a>
+                </li>
+                <li>
+                  <Phone size={16} />
+                  <a href={`tel:${SITE_CONFIG.CONTACT.PHONE}`}>{SITE_CONFIG.CONTACT.PHONE}</a>
+                </li>
+                <li>
+                  <MapPin size={16} />
+                  <span>
+                    {SITE_CONFIG.CONTACT.ADDRESS.STREET.map((line) => (
+                      <span key={line}>
+                        {line}
+                        <br />
+                      </span>
+                    ))}
+                    {SITE_CONFIG.CONTACT.ADDRESS.CITY}, {SITE_CONFIG.CONTACT.ADDRESS.STATE} {SITE_CONFIG.CONTACT.ADDRESS.POSTAL_CODE}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="main-footer">
-          <p>
-            &copy; {new Date().getFullYear()} {SITE_CONFIG.SITE_NAME}. All
-            rights reserved.
-          </p>
-          <p>
-            Designed and Developed by{" "}
-            <a href="/team">{SITE_CONFIG.SITE_NAME} Web Team</a>
-          </p>
+
+        <div className="footer-bottom">
+          <p>Copyright © 2026 Developed by IEEE Kerala Section — IEEE SPS Kerala Section</p>
         </div>
       </div>
     </footer>

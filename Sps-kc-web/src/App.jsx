@@ -1,21 +1,15 @@
 import "./App.css";
-import Event from "./components/Event/event";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import SEO from "./components/SEO/SEO";
 import { getFullUrl } from "./config/siteConfig";
-import About from "./components/About/about";
-import Hero from "./components/hero/hero";
 import Navbar from "./components/Navbar/navbar";
-// import Team from "./components/pages/team";
 import Footer from "./components/footer/footer";
+import HomePage from "./components/Home/home";
 import AllEvents from "./components/Event/allEvents";
 import Newsletter from "./components/Newsletter/newsletter";
 import Sbc from "./components/SBC/sbc";
-import CounterSection from "./components/Counter/counter";
-// import PricingPage from "./components/Pricing/pricing";
 import Awards from "./components/Awards/award";
-import Announcements from "./components/announcements/announcements";
 import Achievements from "./components/Awards/achievements";
 import PastTeam from "./components/Execom/pastTeam";
 import Team from "./components/Execom/team";
@@ -31,16 +25,10 @@ function App() {
               <>
                 <SEO
                   title="IEEE SPS Kerala Chapter - Signal Processing Society"
-                  description="IEEE Signal Processing Society Kerala Chapter promotes excellence in signal processing education, research, and technology in Kerala. Join our community of professionals, students, and researchers."
+                  description="IEEE SPS Kerala Chapter promotes excellence in signal processing education, research, and technology in Kerala. Join our community of professionals, students, and researchers."
                   url={getFullUrl("/")}
                 />
-                <Hero />
-                <About />
-                <Announcements />
-
-                <CounterSection />
-                {/* <PricingPage /> */}
-                <Event />
+                <HomePage />
                 <Footer />
               </>
             }

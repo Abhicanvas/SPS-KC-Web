@@ -1,17 +1,33 @@
 @import "tailwindcss";
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Poppins", "Montserrat", "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   overflow-x: hidden;
-  width:100vw;
+  width: 100vw;
   max-width: 100%;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #ffffff;
+  color: #0f1c33;
+  background-color: #f5f8fd;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  padding: 0;
+  background: #f5f8fd;
+}
+
+* {
+  box-sizing: border-box;
 }
