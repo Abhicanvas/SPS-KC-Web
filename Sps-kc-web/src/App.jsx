@@ -13,6 +13,7 @@ import Awards from "./components/Awards/award";
 import Achievements from "./components/Awards/achievements";
 import PastTeam from "./components/Execom/pastTeam";
 import Team from "./components/Execom/team";
+
 function App() {
   return (
     <HelmetProvider>
@@ -38,11 +39,24 @@ function App() {
             element={
               <>
                 <SEO
-                  title="Present Office Bearers 2025"
-                  description="Meet the current office bearers and team members of IEEE SPS Kerala Chapter for 2025."
+                  title="Team"
+                  description="Meet the IEEE SPS Kerala Chapter team and learn more about the chapter members."
                   url={getFullUrl("/team")}
                 />
-                <Team year={2025} />
+                <Team />
+              </>
+            }
+          />
+          <Route
+            path="/execom-25"
+            element={
+              <>
+                <SEO
+                  title="Office Bearers 2025"
+                  description="Meet the current office bearers and team members of IEEE SPS Kerala Chapter for 2025."
+                  url={getFullUrl("/execom-25")}
+                />
+                <PastTeam year={2025} />
               </>
             }
           />
@@ -81,7 +95,7 @@ function App() {
                   description="Meet the office bearers and team members of IEEE SPS Kerala Chapter for 2022."
                   url={getFullUrl("/execom-22")}
                 />
-                <Team year={2022} />
+                <PastTeam year={2022} />
               </>
             }
           />
@@ -108,6 +122,7 @@ function App() {
                   url={getFullUrl("/events")}
                 />
                 <AllEvents />
+                <Footer />
               </>
             }
           />
