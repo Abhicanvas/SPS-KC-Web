@@ -46,15 +46,20 @@ function EventCard({ event, index }) {
 }
 
 function EventCarousel({ title, events }) {
+  // When events.length <= 3 (same as slidesToShow), react-slick's centerMode
+  // fails to apply the center offset on the track. Fall back to slidesToShow:1
+  // with centerPadding so the centered layout matches the Past Events carousel.
+  const fewSlides = events.length <= 3 && events.length > 1;
+
   const settings = useMemo(
     () => ({
       dots: false,
       infinite: events.length > 1,
       speed: 850,
-      slidesToShow: 3,
+      slidesToShow: fewSlides ? 1 : 3,
       slidesToScroll: 1,
       centerMode: true,
-      centerPadding: "0px",
+      centerPadding: fewSlides ? "25%" : "0px",
       variableWidth: false,
       arrows: false,
       accessibility: true,
@@ -68,8 +73,8 @@ function EventCarousel({ title, events }) {
         {
           breakpoint: 1400,
           settings: {
-            slidesToShow: 3,
-            centerPadding: "0px",
+            slidesToShow: fewSlides ? 1 : 3,
+            centerPadding: fewSlides ? "25%" : "0px",
           },
         },
         {
@@ -95,7 +100,7 @@ function EventCarousel({ title, events }) {
         },
       ],
     }),
-    [events.length]
+    [events.length, fewSlides]
   );
 
   if (!events.length) {
