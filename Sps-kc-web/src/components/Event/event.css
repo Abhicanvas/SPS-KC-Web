@@ -167,12 +167,12 @@
   padding: 0.5rem 0 1.5rem;
 }
 
-/* ── Slick slides overrides ── */
-.slick-list {
+/* ── Slick slides overrides (scoped to .events-carousel) ── */
+.events-carousel .slick-list {
   overflow: visible;
 }
 
-.slick-slide {
+.events-carousel .slick-slide {
   opacity: 0.18;
   transform: scale(0.78) translateY(18px);
   transition: opacity 0.45s ease, transform 0.45s ease;
@@ -180,42 +180,42 @@
   z-index: 1;
 }
 
-.slick-slide > div {
+.events-carousel .slick-slide > div {
   display: flex;
   justify-content: center;
 }
 
-.slick-active {
+.events-carousel .slick-active {
   opacity: 0.58;
   transform: scale(0.88) translateY(10px);
 }
 
-.slick-center {
+.events-carousel .slick-center {
   opacity: 1;
   transform: scale(1) translateY(0);
   position: relative;
   z-index: 20; /* Focused card is always on top */
 }
 
-.slick-center .event-slide__frame {
+.events-carousel .slick-center .event-slide__frame {
   transform: scale(1.06);
   box-shadow: 0 32px 72px rgba(15, 23, 42, 0.2);
 }
 
-.slick-slide.slick-active:not(.slick-center) .event-slide__frame {
+.events-carousel .slick-slide.slick-active:not(.slick-center) .event-slide__frame {
   transform: scale(0.96);
 }
 
 /* Layered stacking effect using transform on desktop */
 @media (min-width: 1101px) {
   /* Left active slide (goes down, lowest priority) */
-  .slick-slide.slick-active:has(+ .slick-center) {
+  .events-carousel .slick-slide.slick-active:has(+ .slick-center) {
     transform: scale(0.88) translateY(10px) translateX(65px);
     z-index: 5;
   }
   
   /* Right active slide (comes up, middle priority) */
-  .slick-center + .slick-slide.slick-active {
+  .events-carousel .slick-center + .slick-slide.slick-active {
     transform: scale(0.88) translateY(10px) translateX(-65px);
     z-index: 10;
   }
@@ -302,10 +302,10 @@
    Responsive Styles
    ═══════════════════════════════════════════ */
 @media (max-width: 1200px) {
-  .slick-slide {
+  .events-carousel .slick-slide {
     transform: scale(0.8) translateY(14px);
   }
-  .slick-active {
+  .events-carousel .slick-active {
     transform: scale(0.9) translateY(8px);
   }
 }
@@ -339,15 +339,15 @@
     width: min(100%, 19rem);
     height: clamp(16rem, 54vw, 20rem);
   }
-  .slick-slide {
+  .events-carousel .slick-slide {
     opacity: 0.25;
     transform: scale(0.88) translateY(8px);
   }
-  .slick-active {
+  .events-carousel .slick-active {
     opacity: 0.75;
     transform: scale(0.94) translateY(4px);
   }
-  .slick-center .event-slide__frame {
+  .events-carousel .slick-center .event-slide__frame {
     transform: scale(1.03);
   }
 }
@@ -383,15 +383,15 @@
     width: min(100%, 17rem);
     height: 16rem;
   }
-  .slick-slide {
+  .events-carousel .slick-slide {
     opacity: 0.35;
     transform: scale(0.86) translateY(6px);
   }
-  .slick-active {
+  .events-carousel .slick-active {
     opacity: 0.85;
     transform: scale(0.94) translateY(2px);
   }
-  .slick-center .event-slide__frame {
+  .events-carousel .slick-center .event-slide__frame {
     transform: scale(1.02);
   }
 }
