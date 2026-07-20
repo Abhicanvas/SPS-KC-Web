@@ -57,13 +57,21 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr);
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 4vw, 4.5rem);
   align-items: center;
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
 }
 
 .hero-copy {
   padding: 2rem 0 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-self: center;
+  max-width: 52rem;
 }
 
 .hero-lockup {
@@ -75,6 +83,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
+  margin: 0 auto;
 }
 
 .hero-lockup-mark {
@@ -90,12 +99,13 @@
 }
 
 .hero-copy h1 {
-  margin: 1.5rem 0 0.85rem;
-  max-width: 11ch;
+  margin: 1.5rem auto 0.85rem;
+  max-width: 12ch;
   font-size: clamp(3rem, 6.5vw, 6.5rem);
   line-height: 0.95;
   letter-spacing: -0.05em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .hero-copy h1 strong {
@@ -105,10 +115,11 @@
 
 .hero-copy p {
   max-width: 44rem;
-  margin: 0;
+  margin: 0 auto;
   font-size: 1.05rem;
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.9);
+  text-align: center;
 }
 
 .hero-actions {
@@ -116,6 +127,7 @@
   flex-wrap: wrap;
   gap: 0.9rem;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 .button {
@@ -146,10 +158,11 @@
 
 .hero-side-panel {
   position: relative;
-  min-height: 28rem;
+  min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-self: end;
 }
 
 .hero-card {
@@ -177,13 +190,11 @@
 }
 
 .hero-social-rail {
-  position: absolute;
-  right: -0.35rem;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  align-items: center;
 }
 
 .hero-social-rail a {
@@ -193,10 +204,16 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #111111;
+  background: #ffffff;
+  border: 1px solid #ffffff;
   backdrop-filter: blur(8px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.hero-social-rail a:hover {
+  transform: translateY(-1px);
+  background: #f8f8f8;
 }
 
 .hero-accent {
@@ -537,7 +554,6 @@
 }
 
 @media (max-width: 1100px) {
-  .hero-grid,
   .about-grid,
   .vision-grid,
   .activity-feature,
@@ -548,16 +564,16 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
   .testimonial-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .hero-side-panel {
-    min-height: auto;
-  }
-
-  .hero-social-rail {
-    right: 0;
+  .hero-copy {
+    max-width: 46rem;
   }
 }
 
@@ -582,15 +598,20 @@
     max-width: none;
   }
 
+  .hero-copy,
   .hero-side-panel {
-    justify-content: flex-start;
+    justify-self: center;
+  }
+
+  .hero-side-panel {
+    width: 100%;
   }
 
   .hero-social-rail {
-    position: static;
-    flex-direction: row;
-    transform: none;
     margin-top: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .intro-shell p {

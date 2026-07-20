@@ -155,27 +155,27 @@ function App() {
           <Route
             path="/awards"
             element={
-              <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 font-inter text-gray-800 p-4 sm:p-8">
+              <>
                 <SEO
                   title="Awards"
                   description="Recognition and awards received by IEEE SPS Kerala Chapter members and the chapter itself."
                   url={getFullUrl("/awards")}
                 />
                 <Awards />
-              </div>
+              </>
             }
           />
           <Route
             path="/achievements"
             element={
-              <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 font-inter text-gray-800 p-4 sm:p-8">
+              <>
                 <SEO
                   title="Achievements"
                   description="Major achievements and milestones of IEEE SPS Kerala Chapter and its members."
                   url={getFullUrl("/achievements")}
                 />
                 <Achievements />
-              </div>
+              </>
             }
           />
         </Routes>

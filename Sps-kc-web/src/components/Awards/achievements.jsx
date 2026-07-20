@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import {client} from "../../sanity/client"; // Adjust path as needed
 import imageUrlBuilder from "@sanity/image-url";
+import "./awards.css";
 
 // Icon mapping for lucide-react
 const iconMap = {
@@ -15,7 +16,11 @@ const iconMap = {
   UserRound: <UserRound className="text-green-600" size={28} />,
 };
 
-const builder = imageUrlBuilder(client);
+const { projectId, dataset } = client.config();
+const builder =
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset })
+    : imageUrlBuilder(client);
 
 function urlFor(source) {
   return builder.image(source).url();
@@ -24,15 +29,15 @@ function urlFor(source) {
 function Achievements() {
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "achievement"] | order(year desc) {
+        `*[_type == "achievement" && defined(name)] | order(date desc) {
       _id,
       name,
-      recipient,
-      year,
+      date,
       description,
       icon,
       image
@@ -40,34 +45,45 @@ function Achievements() {
       )
       .then((data) => {
         setAwards(data);
+      })
+      .catch((err) => {
+        console.error("Sanity fetch error:", err);
+        setError("Unable to load achievements right now.");
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  if (loading) {
-    return <div className="text-center py-10">Loading achievements...</div>;
-  }
-
   return (
-    <section className="container mx-auto px-4 py-8 sm:py-12">
-      {/* Section Header */}
-      <div className="text-center mb-10" style={{ marginTop: "150px" }}>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">
-          Our Achievements
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Highlighting the distinguished accomplishments of
-          our IEEE student chapter and its members.
-        </p>
-      </div>
+    <main className="awards-page">
+      <div className="awards-shell">
+        <header className="awards-hero">
+          <div className="awards-hero-inner">
+            <p className="awards-eyebrow">Achievements</p>
+            <h1>Our Achievements</h1>
+            <p>
+              Highlighting the distinguished accomplishments of our IEEE
+              student chapter and its members.
+            </p>
+          </div>
+        </header>
 
-      {/* Awards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {awards.map((award) => (
-          <AwardCard key={award._id} award={award} />
-        ))}
+        {loading ? (
+          <div className="awards-loading">Loading achievements...</div>
+        ) : error ? (
+          <div className="awards-empty">{error}</div>
+        ) : awards.length === 0 ? (
+          <div className="awards-empty">No achievements have been published yet.</div>
+        ) : (
+          <section className="awards-grid" aria-label="Achievements list">
+            {awards.map((award) => (
+              <AwardCard key={award._id} award={award} />
+            ))}
+          </section>
+        )}
       </div>
-    </section>
+    </main>
   );
 }
 
@@ -77,13 +93,19 @@ function AwardCard({ award }) {
   const IconComponent = iconMap[award.icon] || (
     <AwardIcon className="text-blue-600" size={28} />
   );
+  const formattedDate = award.date
+    ? new Date(award.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+      })
+    : "";
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-start border border-blue-100">
+    <article className="award-card">
       {award.image && (
         <img
           src={urlFor(award.image)}
           alt={award.name}
-          className="w-full h-64 object-cover rounded-lg mb-4"
+          className="award-card__image"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src =
@@ -91,22 +113,20 @@ function AwardCard({ award }) {
           }}
         />
       )}
-      <div className="flex items-center mb-4">
-        {IconComponent}
-        <h3 className="text-xl font-semibold text-gray-900 ml-3">
-          {award.name}
-        </h3>
+      <div className="award-card__header">
+        <div className="award-card__icon">{IconComponent}</div>
+        <h3 className="award-card__title">{award.name}</h3>
       </div>
-      <p className="text-gray-700 mb-2 flex items-center">
-        <UserRound className="w-4 h-4 mr-2 text-gray-500" />
-        <span className="font-medium">{award.recipient}</span>
-      </p>
-      <p className="text-gray-600 mb-4 flex items-center">
-        <Calendar className="w-4 h-4 mr-2 text-gray-500" />
-        <span className="text-sm">{award.year}</span>
-      </p>
-      {/* <p className="text-gray-600 text-sm leading-relaxed flex-grow">{award.description}</p> */}
-    </div>
+      <div className="award-card__meta">
+        {formattedDate ? (
+          <p className="award-card__meta-row">
+            <Calendar size={16} />
+            <span>{formattedDate}</span>
+          </p>
+        ) : null}
+      </div>
+      {award.description ? <p className="award-card__description">{award.description}</p> : null}
+    </article>
   );
 }
 

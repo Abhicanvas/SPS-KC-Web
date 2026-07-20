@@ -81,10 +81,10 @@ export default function Navbar() {
             <Link to="/events">Events</Link>
           </li>
           <li>
-            <a href="/#activities">Development</a>
+            <Link to="/awards">Awards</Link>
           </li>
           <li>
-            <a href="/#vision">Alumni</a>
+            <Link to="/achievements">Achievements</Link>
           </li>
           <li className="nav-cta-wrap">
             <a href="/#contact" className="nav-cta">
