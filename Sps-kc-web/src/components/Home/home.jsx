@@ -67,11 +67,11 @@ const testimonials = [
 
 const galleryImages = [
   "/img/events/Rectangle 18.png",
-  "/img/events/gal1.jpg",
-  "/img/events/gal2.JPG",
-  "/img/events/gal3.JPG",
-  "/img/events/gal4.JPG",
-  "/img/events/Rectangle 18.png",
+  "/img/events/gal1.webp",
+  "/img/events/gal5.webp",
+  "/img/events/gal3.webp",
+  "/img/events/gal4.webp",
+  "/img/events/gal2.webp",
 ];
 
 const visionPoints = [
@@ -262,7 +262,7 @@ export default function HomePage() {
 
       <section id="vision" className="vision-section">
         <div className="home-shell section-grid vision-grid">
-          <img src="/img/events/gal2.JPG" />
+          <img src="/img/events/gal2.webp" />
           <div className="vision-copy">
             <div className="section-title-left">
               <h2>Our Vision</h2>

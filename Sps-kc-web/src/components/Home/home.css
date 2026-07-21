@@ -579,7 +579,7 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    padding-top: 6rem;
+    padding-top: 5.5rem;
     min-height: auto;
   }
 
@@ -598,20 +598,25 @@
     max-width: none;
   }
 
-  .hero-copy,
-  .hero-side-panel {
+  .hero-copy {
     justify-self: center;
   }
 
-  .hero-side-panel {
+  .hero-copy {
+    padding: 1.5rem 0 2rem;
     width: 100%;
   }
 
-  .hero-social-rail {
-    margin-top: 1rem;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  .hero-lockup {
+    display: none;
+  }
+
+  .hero-copy h1 {
+    margin-top: 0;
+  }
+
+  .hero-side-panel {
+    display: none;
   }
 
   .intro-shell p {
