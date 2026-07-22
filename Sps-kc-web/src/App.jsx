@@ -6,6 +6,7 @@ import { getFullUrl } from "./config/siteConfig";
 import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/footer/footer";
 import HomePage from "./components/Home/home";
+import AboutPage from "./components/About/about";
 import AllEvents from "./components/Event/allEvents";
 import Newsletter from "./components/Newsletter/newsletter";
 import Sbc from "./components/SBC/sbc";
@@ -30,6 +31,20 @@ function App() {
                   url={getFullUrl("/")}
                 />
                 <HomePage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <>
+                <SEO
+                  title="About"
+                  description="Learn about IEEE SPS Kerala Chapter, its mission, community, and vision for the future."
+                  url={getFullUrl("/about")}
+                />
+                <AboutPage />
                 <Footer />
               </>
             }

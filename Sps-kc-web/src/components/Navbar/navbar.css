@@ -200,7 +200,7 @@
     align-items: stretch;
     gap: 0.75rem;
     border-radius: 1.4rem;
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.99);
     border: 1px solid rgba(255, 255, 255, 0.24);
     box-shadow: 0 20px 60px rgba(12, 32, 68, 0.18);
     backdrop-filter: blur(18px) saturate(160%);
@@ -221,6 +221,9 @@
   }
 
   .nav-cta {
+    color: black !important;
+    background: rgba(255, 255, 255, 0.99) ;
+    box-shadow: none;
     width: 100%;
   }
 

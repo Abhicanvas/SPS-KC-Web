@@ -11,10 +11,10 @@ import { SITE_CONFIG } from "../../config/siteConfig";
 import "./home.css";
 
 const stats = [
-  { value: "78", label: "YEARS" },
-  { value: "1000+", label: "MEMBERS" },
-  { value: "30+", label: "STUDENT MEMBERS" },
-  { value: "200+", label: "EVENTS" },
+  { value: "10+", label: "YEARS" },
+  { value: "1156", label: "MEMBERS" },
+  { value: "30+", label: "STUDENT CHAPTERS" },
+  { value: "100+", label: "EVENTS" },
 ];
 
 const checkpoints = [
@@ -66,12 +66,12 @@ const testimonials = [
 ];
 
 const galleryImages = [
-  "/img/events/WhatsApp-Image-2023-10-24-at-7.01.06-PM-qec7o4oryuf1bff4wba8p5haj5a93d1y40p5s4czfc.jpeg",
-  "/img/events/WhatsApp-Image-2023-11-16-at-19.01.38_e5ec5b19-qfhyywbvwkxiiew2ay5dnywp9yrlkjt731t41fx9p4.jpg",
-  "/img/events/WhatsApp-Image-2023-11-17-at-17.48.42_e4b128f8-qfhyyx9q3eysu0up5gk08go5vcmys8wxf6glipvviw.jpg",
-  "/img/events/WhatsApp-Image-2024-07-11-at-4.32.13-PM-qr28cnt5n3ucsv5efg87vn7ezd954p98i9lyhcspy0.jpeg",
-  "/img/events/WhatsApp-Image-2024-07-11-at-4.32.30-PM-qr28dlnch54oets8xuusdeo0d8mctszkmx3frbejq0.jpeg",
-  "/img/events/WhatsApp-Image-2024-07-11-at-4.32.35-PM-1-qr28dvzkkbityjd89hbomu22wh7e6h4mcc9s1cz7tk.jpeg",
+  "/img/events/Rectangle 18.png",
+  "/img/events/gal1.webp",
+  "/img/events/gal5.webp",
+  "/img/events/gal3.webp",
+  "/img/events/gal4.webp",
+  "/img/events/gal2.webp",
 ];
 
 const visionPoints = [
@@ -98,7 +98,7 @@ export default function HomePage() {
         <div className="hero-background" />
         <div className="hero-overlay" />
         <img
-          src="/img/IEEE-SPS-EXECOM.jpeg"
+          src="/img/slt26.jpeg"
           alt="IEEE SPS Kerala Chapter group photo"
           className="hero-photo-overlay"
         />
@@ -215,7 +215,7 @@ export default function HomePage() {
                 professionals around the latest signal processing themes.
               </p>
             </div>
-            <img src="/img/events/IEEE-SPS-EXECOM-1-scaled.jpeg" alt="Seminar audience" />
+            <img src="/img/slt26.jpeg" alt="Seminar audience" />
           </div>
 
           <div className="activity-grid-two">
@@ -262,7 +262,7 @@ export default function HomePage() {
 
       <section id="vision" className="vision-section">
         <div className="home-shell section-grid vision-grid">
-          <img src="/img/events/WhatsApp-Image-2024-07-11-at-4.32.39-PM-qr28e79muby9tuwufm77gr7m13nsqudedw3lsoihqw.jpeg" alt="IEEE chapter event" />
+          <img src="/img/events/gal2.webp" />
           <div className="vision-copy">
             <div className="section-title-left">
               <h2>Our Vision</h2>

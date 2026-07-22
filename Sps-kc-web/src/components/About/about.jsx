@@ -1,82 +1,144 @@
-import React from "react";
-import "./about.css";
-import SectionTitle from "../sectionTitle";
-const About = () => {
+import { Check } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faXTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+import { SITE_CONFIG } from "../../config/siteConfig";
+import "../Home/home.css";
+
+const checkpoints = [
+  "Active since 2015 with 100+ student members across various chapters",
+  "Recognized for organizing impactful events like the Student Development Program and TechTalk series",
+  "Strong presence in IEEE Kerala Section",
+  "Collaborated with organizations such as IEEE Computer Society, IEEE PES, and WIE",
+  "Focus on technical growth, community service, and professional networking",
+];
+
+const visionPoints = [
+  "Leadership development through hands-on student and professional roles",
+  "Structured mentorship for emerging volunteers and chapter leaders",
+  "Cross-chapter collaboration across Kerala and the wider IEEE network",
+  "Industry partnerships that convert learning into career pathways",
+  "Research initiatives and technical sessions that sustain innovation",
+  "Community outreach, DEI, alumni engagement, and sustainability",
+];
+
+const socialLinks = [
+  { href: SITE_CONFIG.SOCIAL_LINKS.FACEBOOK, icon: faFacebookF, label: "Facebook" },
+  { href: "https://x.com/ieeespskerala", icon: faXTwitter, label: "X" },
+  { href: SITE_CONFIG.SOCIAL_LINKS.INSTAGRAM, icon: faInstagram, label: "Instagram" },
+  { href: SITE_CONFIG.SOCIAL_LINKS.LINKEDIN, icon: faLinkedinIn, label: "LinkedIn" },
+  { href: "https://www.youtube.com", icon: faYoutube, label: "YouTube" },
+];
+
+export default function AboutPage() {
   return (
-    <div id="about" className="about">
-        {/* <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            class="shape-fill"
-          ></path>
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-            class="shape-fill"
-          ></path>
-        </svg> */}
-      <div className="container p-10 flex flex-col items-center justify-center">
-        <SectionTitle title="About" />
-        <div className="row flex flex-col md:flex-row items-center h-56 md:h-64 gap-6 ">
-          <img
-            src="img/logo/sps.png"
-            alt=""
-            id="sps"
-            className="w-8/10 md:w-1/3 md:w-1/3 object-contain"
-          />
-          <div className>
-            <div className="about-text">
-              <h2>IEEE SPS </h2>
-              <p>
-                The IEEE Signal Processing Society (SPS), founded in 1948, is
-                the world's premier association for signal processing engineers
-                and industry professionals. Its mission is to advance and
-                disseminate state-of-the-art scientific information and
-                resources; educate the signal processing community; and provide
-                a venue for people to interact and exchange ideas.
-              </p>
+    <main className="home-page">
+      <section id="home" className="hero-section">
+        <div className="hero-background" />
+        <div className="hero-overlay" />
+        <img
+          src="/img/IEEE-SPS-EXECOM.jpeg"
+          alt="IEEE SPS Kerala Chapter group photo"
+          className="hero-photo-overlay"
+        />
+        <div className="home-shell hero-grid">
+          <div className="hero-copy">
+            <div className="hero-lockup">
+              <img src="/img/logo/ieee png.png" alt="IEEE logo" className="hero-lockup-mark" />
+              <div>
+                <span>IEEE Kerala Section Kochi</span>
+              </div>
+            </div>
+            <h1>
+              <strong>ABOUT</strong> IEEE SPS KERALA CHAPTER
+            </h1>
+            <p>
+              A closer look at the chapter&apos;s mission, community, and long-term vision for signal processing in
+              Kerala.
+            </p>
+            <div className="hero-actions">
+              <a href="#about" className="button button-primary">
+                Learn About Us
+              </a>
+              <a href="#vision" className="button button-secondary">
+                Our Vision
+              </a>
+            </div>
+          </div>
+
+          <div className="hero-side-panel">
+            <div className="hero-social-rail">
+              {socialLinks.map((item) => (
+                <a key={item.label} href={item.href} target="_blank" rel="noreferrer" aria-label={item.label}>
+                  <FontAwesomeIcon icon={item.icon} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
-        <div className="row flex flex-col md:flex-row items-center h-56 md:h-64 gap-6 ">
-          <img
-            src="img/logo/sps kc png.png"
-            alt=""
-            className="w-8/10 md:w-1/3 md:w-1/3 object-contain"
-          />
-          <div className>
-            <div className="about-text">
-              <h2>IEEE SPS KC</h2>
-              <p>
-                The IEEE Signal Processing Society (SPS) Kerala Chapter is a
-                thriving, close-knit group that has been named Best Chapter of
-                the Year on a global scale. Our team, led by 23 motivated
-                student leaders and 17 professionals, including three VOLT
-                grads, thrives with the support of a devoted advisory board. We
-                plan meaningful activities, encourage collaboration among
-                Kerala's expanding SPS student clubs, and recognize
-                accomplishments such as winning ICIP and ICASSP video
-                competitions. With members now helping to arrange ICASSP 2025,
-                our influence has expanded well beyond the region. Together with
-                other IEEE chapters, we're creating a worldwide network based on
-                local enthusiasm. More than just a chapter, we're a family where
-                ideas thrive and every effort counts.
-              </p>
-            </div>
+        <div className="hero-accent" />
+      </section>
+
+      <section id="about" className="about-section">
+        <div className="home-shell section-grid about-grid">
+          <div className="section-heading-block">
+            <p className="eyebrow">ABOUT</p>
+            <img src="/img/logo/sps.png" alt="IEEE SPS Kerala Chapter" className="about-logo" />
+          </div>
+          <div className="section-content-block">
+            <p>
+              The IEEE Signal Processing Society (SPS) is the world&apos;s premier association dedicated to advancing
+              the field of signal processing. With a global community of 25,000 members, it supports research,
+              education, and professional exchange across industry and academia.
+            </p>
+            <ul className="check-list">
+              {checkpoints.map((item) => (
+                <li key={item}>
+                  <Check size={18} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section className="intro-section">
+        <div className="home-shell intro-shell">
+          <span className="decor decor-top">❝</span>
+          <p>
+            The chapter brings students, researchers, and professionals together around practical learning,
+            meaningful collaboration, and a steady focus on technical growth.
+          </p>
+          <span className="decor decor-bottom">❞</span>
+        </div>
+      </section>
+
+      <section id="vision" className="vision-section">
+        <div className="home-shell section-grid vision-grid">
+          <img src="/img/events/WhatsApp-Image-2024-07-11-at-4.32.39-PM-qr28e79muby9tuwufm77gr7m13nsqudedw3lsoihqw.jpeg" alt="IEEE chapter event" />
+          <div className="vision-copy">
+            <div className="section-title-left">
+              <h2>Our Vision</h2>
+              <p>Building a stronger, more collaborative IEEE SPS community for 2026 and beyond.</p>
+            </div>
+            <p className="vision-kicker">VISION FOR 2026</p>
+            <ul className="check-list">
+              {visionPoints.map((item) => (
+                <li key={item}>
+                  <Check size={18} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
   );
-};
-export default About;
+}

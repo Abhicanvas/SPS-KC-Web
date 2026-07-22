@@ -38,9 +38,9 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-shell">
-        <a href="/" className="logo" aria-label="IEEE SPS Kerala Chapter home">
+        <Link to="/" className="logo" aria-label="IEEE SPS Kerala Chapter home">
           <img src="/img/logo/sps kc png.png" alt="IEEE SPS Kerala Chapter" />
-        </a>
+        </Link>
 
         <button className="menu-icon" id="menu-icon" type="button" onClick={() => setIsOpen((value) => !value)}>
           {isOpen ? <X size={26} /> : <Menu size={26} />}
@@ -48,10 +48,10 @@ export default function Navbar() {
 
         <ul className={`nav-links${isOpen ? " open" : ""}`} id="nav-links">
           <li>
-            <a href="/#home">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="/#about">About</a>
+            <Link to="/about">About</Link>
           </li>
 
           {/* ── Execom Dropdown ── */}
