@@ -11,17 +11,13 @@ const urlFor = (source) =>
 
 function TeamGrid({ title, team }) {
   return (
-    <div className="mx-auto flex align-middle justify-center px-20 p-5">
-      <div>
+    <div className="mx-auto flex align-middle justify-center px-20 max-[768px]:px-5 p-5">
+      <div className="w-full">
         <h2 className="text-4xl text-center text-black font-bold mb-4 py-7">
           {title}
         </h2>
         <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "2rem",
-          }}
+          className={`grid gap-[2rem] max-[768px]:gap-[1rem] grid-cols-[repeat(auto-fit,minmax(220px,1fr))] ${team.length > 1 ? 'max-[768px]:!grid-cols-2' : 'max-[768px]:!grid-cols-1'}`}
         >
           {team.map((member) => {
             const imageUrl =
@@ -78,22 +74,22 @@ function Execom25InlineTeam({ members, loading }) {
   const cardImageClass =
     teamSize <= 2
       ? "w-full min-w-0 h-auto object-contain"
-      : "mt-[30px] h-[220px] w-full min-w-[200px] rounded-xl object-contain";
+      : "mt-[30px] h-[220px] w-full min-w-[200px] max-[768px]:min-w-[120px] max-[768px]:h-[160px] max-[768px]:mt-[15px] rounded-xl object-contain";
 
   const renderCard = (item, index) => (
     <div
       key={item._id || index}
-      className={`flex w-[300px] flex-col items-center justify-center ${teamSize <= 2 ? "members-large w-full min-w-[280px]" : ""}`}
+      className={`flex w-[300px] max-[768px]:w-auto flex-col items-center justify-center ${teamSize <= 2 ? "members-large w-full min-w-[280px] max-[768px]:min-w-[150px]" : ""}`}
     >
       <img
         src={item.image && item.image.asset ? urlFor(item.image).url() : items === 0 ? "img/team/image.png" : "img/team/random1.png"}
         alt="team member"
         className={cardImageClass}
       />
-      <h3 className={`${teamSize <= 2 ? "hidden" : "text-center text-[32px]"}`}>
+      <h3 className={`${teamSize <= 2 ? "hidden" : "text-center text-[32px] max-[768px]:text-[16px]"}`}>
         {item.title}
       </h3>
-      <p className={`${teamSize <= 2 ? "hidden" : "text-center text-[24px] text-[#007a78]"}`}>
+      <p className={`${teamSize <= 2 ? "hidden" : "text-center text-[24px] max-[768px]:text-[12px] text-[#007a78]"}`}>
         {item.role}
       </p>
     </div>
@@ -121,7 +117,7 @@ function Execom25InlineTeam({ members, loading }) {
             </h3>
           </button>
         </div>
-        <div className={`members flex flex-wrap justify-center gap-[30px] max-[768px]:flex-col max-[768px]:items-center ${teamSize <= 2 ? "members-large flex-col" : ""}`}>
+        <div className={`members flex flex-wrap justify-center gap-[30px] max-[768px]:grid ${teamSize === 1 ? 'max-[768px]:!grid-cols-1' : 'max-[768px]:!grid-cols-2'} max-[768px]:gap-[15px] ${teamSize <= 2 ? "members-large !flex-col" : ""}`}>
           {activeTeam.map(renderCard)}
         </div>
       </div>
@@ -151,17 +147,17 @@ function Execom22InlineTeam({ members, loading }) {
   const renderCard = (item, index) => (
     <div
       key={item._id || index}
-      className={`flex w-[300px] flex-col items-center justify-center ${teamSize <= 2 ? "w-full min-w-[280px]" : ""}`}
+      className={`flex w-[300px] max-[768px]:w-auto flex-col items-center justify-center ${teamSize <= 2 ? "w-full min-w-[280px] max-[768px]:min-w-[150px]" : ""}`}
     >
       <img
         src={item.image && item.image.asset ? urlFor(item.image).url() : items === 0 ? "img/team/image.png" : "img/team/random1.png"}
         alt="team member"
-        className={`object-contain ${teamSize <= 2 ? "w-full min-w-0 h-auto" : "mt-[30px] h-[220px] w-full min-w-[200px] rounded-xl"}`}
+        className={`object-contain ${teamSize <= 2 ? "w-full min-w-0 h-auto" : "mt-[30px] max-[768px]:mt-[15px] h-[220px] max-[768px]:h-[160px] w-full min-w-[200px] max-[768px]:min-w-[120px] rounded-xl"}`}
       />
-      <h3 className={`${teamSize <= 2 ? "hidden" : "text-center text-[32px]"}`}>
+      <h3 className={`${teamSize <= 2 ? "hidden" : "text-center text-[32px] max-[768px]:text-[16px]"}`}>
         {item.title}
       </h3>
-      <p className={`${teamSize <= 2 ? "hidden" : "text-center text-[24px] text-[#007a78]"}`}>
+      <p className={`${teamSize <= 2 ? "hidden" : "text-center text-[24px] max-[768px]:text-[12px] text-[#007a78]"}`}>
         {item.role}
       </p>
     </div>
@@ -189,7 +185,7 @@ function Execom22InlineTeam({ members, loading }) {
             </h3>
           </button>
         </div>
-        <div className={`members flex flex-wrap justify-center gap-[30px] max-[768px]:flex-col max-[768px]:items-center ${teamSize <= 2 ? "members-large flex-col" : ""}`}>
+        <div className={`members flex flex-wrap justify-center gap-[30px] max-[768px]:grid ${teamSize === 1 ? 'max-[768px]:!grid-cols-1' : 'max-[768px]:!grid-cols-2'} max-[768px]:gap-[15px] ${teamSize <= 2 ? "members-large !flex-col" : ""}`}>
           {activeTeam.map(renderCard)}
         </div>
       </div>
@@ -266,7 +262,7 @@ export default function PastTeam({ year }) {
   );
 
   return (
-    <main className="mx-auto px-20 py-10">
+    <main className="mx-auto px-20 max-[768px]:px-5 pt-[120px] pb-10">
       <h1 className="text-4xl text-center sm:text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">
         Meet the team of {year}
       </h1>

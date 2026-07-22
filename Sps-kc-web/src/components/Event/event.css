@@ -6,7 +6,6 @@
   color: #0f1c33;
   font-family: "Outfit", sans-serif;
   min-height: 100vh;
-  padding-top: 5.4rem;
 }
 
 /* ═══════════════════════════════════════════
@@ -19,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(4rem, 8vw, 6rem) 1.5rem 3rem;
+  padding: calc(clamp(4rem, 8vw, 6rem) + 4rem) 1.5rem 3rem;
   background-image: url("/img/IEEE-SPS-EXECOM.jpeg");
   background-position: center;
   background-size: cover;
@@ -311,9 +310,6 @@
 }
 
 @media (max-width: 860px) {
-  .events-page {
-    padding-top: 5.2rem;
-  }
   .events-page__hero {
     min-height: 26rem;
   }
@@ -353,11 +349,9 @@
 }
 
 @media (max-width: 480px) {
-  .events-page {
-    padding-top: 5rem;
-  }
   .events-page__hero {
     min-height: 22rem;
+    padding-top: 8rem;
     padding-inline: 1rem;
     border-bottom-width: 4px;
   }
