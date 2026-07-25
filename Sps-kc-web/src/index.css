@@ -30,4 +30,9 @@ body {
 
 * {
   box-sizing: border-box;
+  overflow-anchor: none;
+}
+
+[class*="__loading"] {
+  min-height: 80vh;
 }

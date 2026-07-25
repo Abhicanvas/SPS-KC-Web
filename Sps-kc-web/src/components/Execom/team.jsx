@@ -107,8 +107,6 @@ export default function Team() {
                 <br />
                 <strong>
                   Kerala Section
-                  <br />
-                  Kochi
                 </strong>
               </span>
             </div>
