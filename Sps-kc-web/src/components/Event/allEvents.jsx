@@ -15,8 +15,12 @@ const urlFor = (source) =>
 
 const EVENTS_QUERY = `*[_type == "event" && defined(image.asset)]|order(date desc){
   _id,
+  title,
   image,
-  date
+  date,
+  description,
+  author,
+  categories
 }`;
 
 const heroSocials = [
@@ -26,26 +30,143 @@ const heroSocials = [
   { href: "https://linkedin.com", label: "LinkedIn", svgPath: "M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" }
 ];
 
-function EventCard({ event, index }) {
+function EventModal({ event, onClose }) {
+  useEffect(() => {
+    if (!event) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [event, onClose]);
+
+  if (!event) return null;
+
   const imageUrl = event.image && event.image.asset ? urlFor(event.image).url() : null;
+  const formattedDate = event.date
+    ? new Date(event.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
 
   return (
-    <article className="event-slide">
+    <div
+      className="event-modal__backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-event-title"
+    >
+      <div className="event-modal__content" onClick={(e) => e.stopPropagation()}>
+        <button
+          className="event-modal__close"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <div className="event-modal__left">
+          {imageUrl ? (
+            <img src={imageUrl} alt={event.title || "Event poster"} className="event-modal__poster" />
+          ) : (
+            <div className="event-modal__no-image">No Poster Available</div>
+          )}
+        </div>
+        <div className="event-modal__right">
+          <div className="event-modal__meta">
+            {formattedDate && (
+              <span className="event-modal__date">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="16" height="16">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                {formattedDate}
+              </span>
+            )}
+            {event.categories && event.categories.length > 0 && (
+              <div className="event-modal__tags">
+                {event.categories.map((cat, i) => (
+                  <span key={i} className="event-modal__tag">{cat}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <h3 id="modal-event-title" className="event-modal__title">
+            {event.title || "IEEE SPS Kerala Chapter Event"}
+          </h3>
+          <div className="event-modal__divider" />
+          <div className="event-modal__history">
+            {event.description || "No detailed history or description available for this event yet. Stay tuned for our future updates!"}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EventCard({ event, index, onSelect }) {
+  const imageUrl = event.image && event.image.asset ? urlFor(event.image).url() : null;
+  const [dragStart, setDragStart] = useState(null);
+
+  const handleMouseDown = (e) => {
+    setDragStart({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleClick = (e) => {
+    if (dragStart) {
+      const dx = Math.abs(e.clientX - dragStart.x);
+      const dy = Math.abs(e.clientY - dragStart.y);
+      if (dx > 6 || dy > 6) {
+        return;
+      }
+    }
+    if (onSelect) onSelect(event);
+  };
+
+  return (
+    <article
+      className="event-slide"
+      onMouseDown={handleMouseDown}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if ((e.key === "Enter" || e.key === " ") && onSelect) {
+          e.preventDefault();
+          onSelect(event);
+        }
+      }}
+      aria-label={`View details for ${event.title || `Event ${index + 1}`}`}
+    >
       <div className="event-slide__frame">
         {imageUrl && (
           <img
             src={imageUrl}
-            alt={`Event ${index + 1}`}
+            alt={event.title || `Event ${index + 1}`}
             className="event-slide__image"
             loading="lazy"
           />
         )}
+        <div className="event-slide__hover-overlay">
+          <span className="event-slide__hover-pill">View Details</span>
+        </div>
       </div>
     </article>
   );
 }
 
-function EventCarousel({ title, events }) {
+function EventCarousel({ title, events, onSelect }) {
   // When events.length <= 3 (same as slidesToShow), react-slick's centerMode
   // fails to apply the center offset on the track. Fall back to slidesToShow:1
   // with centerPadding so the centered layout matches the Past Events carousel.
@@ -64,7 +185,7 @@ function EventCarousel({ title, events }) {
       arrows: false,
       accessibility: true,
       autoplay: events.length > 1,
-      autoplaySpeed: 3200,
+      autoplaySpeed: 2000,
       pauseOnHover: true,
       adaptiveHeight: false,
       lazyLoad: "progressive",
@@ -81,21 +202,21 @@ function EventCarousel({ title, events }) {
           breakpoint: 1100,
           settings: {
             slidesToShow: 1,
-            centerPadding: "20%",
+            centerPadding: "22%",
           },
         },
         {
           breakpoint: 768,
           settings: {
             slidesToShow: 1,
-            centerPadding: "15%",
+            centerPadding: "20%",
           },
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            centerPadding: "30px",
+            centerPadding: "18%",
           },
         },
       ],
@@ -122,7 +243,7 @@ function EventCarousel({ title, events }) {
       <div className="events-carousel">
         <Slider {...settings}>
           {events.map((event, index) => (
-            <EventCard key={event._id} event={event} index={index} />
+            <EventCard key={event._id} event={event} index={index} onSelect={onSelect} />
           ))}
         </Slider>
       </div>
@@ -133,6 +254,7 @@ function EventCarousel({ title, events }) {
 export default function AllEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -181,8 +303,6 @@ export default function AllEvents() {
               <br />
               <strong>
                 Kerala Section
-                <br />
-                Kochi
               </strong>
             </span>
           </div>
@@ -208,14 +328,18 @@ export default function AllEvents() {
           <EventCarousel
             title="Upcoming Events"
             events={upcomingEvents}
+            onSelect={setSelectedEvent}
           />
 
           <EventCarousel
             title="Past Events"
             events={pastEvents.length ? pastEvents : events}
+            onSelect={setSelectedEvent}
           />
         </div>
       </section>
+
+      <EventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
     </main>
   );
 }

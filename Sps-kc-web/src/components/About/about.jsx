@@ -51,7 +51,7 @@ export default function AboutPage() {
             <div className="hero-lockup">
               <img src="/img/logo/ieee png.png" alt="IEEE logo" className="hero-lockup-mark" />
               <div>
-                <span>IEEE Kerala Section Kochi</span>
+                <span>IEEE Kerala Section</span>
               </div>
             </div>
             <h1>

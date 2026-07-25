@@ -1,5 +1,6 @@
+import React, { useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import SEO from "./components/SEO/SEO";
 import { getFullUrl } from "./config/siteConfig";
@@ -15,10 +16,19 @@ import Achievements from "./components/Awards/achievements";
 import PastTeam from "./components/Execom/pastTeam";
 import Team from "./components/Execom/team";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   return (
     <HelmetProvider>
       <Router>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route
