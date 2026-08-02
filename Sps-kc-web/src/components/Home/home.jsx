@@ -28,11 +28,11 @@ const checkpoints = [
 const activities = [
   {
     title: "Student Activities",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porta, nibh sed iaculis faucibus, arcu nunc pretium est, eget molestie lorem nisi vitae lectus.",
+    text: "From hackathons and treasure hunts to hands-on technical workshops, student activities offer direct exposure to signal processing tools and applications, while event leadership and chapter roles build practical skills that extend well beyond the classroom.",
   },
   {
     title: "Membership Activities",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porta, nibh sed iaculis faucibus, arcu nunc pretium est, eget molestie lorem nisi vitae lectus.",
+    text: "From hackathons and treasure hunts to hands-on technical workshops, student activities offer direct exposure to signal processing tools and applications, while event leadership and chapter roles build practical skills that extend well beyond the classroom",
   },
 ];
 
@@ -75,12 +75,12 @@ const galleryImages = [
 ];
 
 const visionPoints = [
-  "Leadership development through hands-on student and professional roles",
-  "Structured mentorship for emerging volunteers and chapter leaders",
-  "Cross-chapter collaboration across Kerala and the wider IEEE network",
-  "Industry partnerships that convert learning into career pathways",
-  "Research initiatives and technical sessions that sustain innovation",
-  "Community outreach, DEI, alumni engagement, and sustainability",
+  "Leadership development — hands-on roles in student and professional activities that build real decision-making experience, not just titles.",
+  "Structured mentorship — pairing emerging volunteers and chapter leaders with experienced members for guided, sustained growth",
+  "Cross-chapter collaboration — stronger ties across Kerala's IEEE SPS network and beyond, turning isolated efforts into shared momentum.",
+  "Industry partnerships — connecting classroom learning to real career pathways through internships, talks, and collaborative projects.",
+  "Research and innovation — technical sessions and research initiatives that keep the chapter at the edge of signal processing advances.",
+  "Community and sustainability — deeper outreach, DEI commitment, alumni engagement, and long-term chapter health.",
 ];
 
 const socialLinks = [
@@ -143,9 +143,7 @@ export default function HomePage() {
         <div className="home-shell intro-shell">
           <span className="decor decor-top">❝</span>
           <p>
-            The Signal Processing Society, founded as IEEE&apos;s first society in 1948, is the world&apos;s premier
-            association for signal processing engineers and industry professionals. Engineers around the world look
-            to the Society for information on the latest developments in the signal processing field.
+            Students, researchers, and professionals come together here — driven by practical learning, real collaboration, and a shared focus on advancing technically.
           </p>
           <span className="decor decor-bottom">❞</span>
         </div>
@@ -250,7 +248,7 @@ export default function HomePage() {
         <div className="home-shell">
           <div className="section-title-center">
             <h2>Gallery</h2>
-            <p>Lorem ipsum is simple dummy text of the printing and typesetting industry.</p>
+            <p>A curated look back at workshops, hackathons, and flagship events — capturing the people, ideas, and moments that define the chapter year after year.</p>
           </div>
           <div className="gallery-grid">
             {galleryImages.map((image, index) => (
@@ -266,7 +264,7 @@ export default function HomePage() {
           <div className="vision-copy">
             <div className="section-title-left">
               <h2>Our Vision</h2>
-              <p>Building a stronger, more collaborative IEEE SPS community for 2026 and beyond.</p>
+              <p>Shaping a stronger, more connected IEEE SPS community — one built on leadership, mentorship, and collaboration that carries into 2026 and beyond.</p>
             </div>
             <p className="vision-kicker">VISION FOR 2026</p>
             <ul className="check-list">

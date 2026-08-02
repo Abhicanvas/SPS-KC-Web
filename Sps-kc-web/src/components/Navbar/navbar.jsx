@@ -39,7 +39,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-shell">
         <Link to="/" className="logo" aria-label="IEEE SPS Kerala Chapter home">
-          <img src="/img/logo/sps kc png.png" alt="IEEE SPS Kerala Chapter" />
+          <img src="/img/logo/sps-kc-bl.png" alt="IEEE SPS Kerala Chapter" />
         </Link>
 
         <button className="menu-icon" id="menu-icon" type="button" onClick={() => setIsOpen((value) => !value)}>

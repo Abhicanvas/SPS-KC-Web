@@ -9,6 +9,7 @@ import Footer from "./components/footer/footer";
 import HomePage from "./components/Home/home";
 import AboutPage from "./components/About/about";
 import AllEvents from "./components/Event/allEvents";
+import EventDetailPage from "./components/Event/eventDetail";
 import Newsletter from "./components/Newsletter/newsletter";
 import Sbc from "./components/SBC/sbc";
 import Awards from "./components/Awards/award";
@@ -147,6 +148,20 @@ function App() {
                   url={getFullUrl("/events")}
                 />
                 <AllEvents />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/events/:slug"
+            element={
+              <>
+                <SEO
+                  title="Event Record"
+                  description="Open an IEEE SPS Kerala Chapter event record with poster, history, and details."
+                  url={getFullUrl("/events")}
+                />
+                <EventDetailPage />
                 <Footer />
               </>
             }

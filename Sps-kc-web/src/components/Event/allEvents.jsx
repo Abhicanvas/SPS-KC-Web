@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { client } from "../../sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Slider from "react-slick";
@@ -6,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./event.css";
 import Footer from "../footer/footer";
+import { featuredEventRecords, getEventSlug } from "./eventRecords";
 
 const { projectId, dataset } = client.config();
 const urlFor = (source) =>
@@ -15,12 +17,14 @@ const urlFor = (source) =>
 
 const EVENTS_QUERY = `*[_type == "event" && defined(image.asset)]|order(date desc){
   _id,
+  slug,
   title,
   image,
   date,
   description,
   author,
-  categories
+  categories,
+  tags
 }`;
 
 const heroSocials = [
@@ -29,6 +33,111 @@ const heroSocials = [
   { href: "https://instagram.com", label: "Instagram", svgPath: "M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" },
   { href: "https://linkedin.com", label: "LinkedIn", svgPath: "M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" }
 ];
+
+function hashEventSeed(value) {
+  let hash = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash * 31 + value.charCodeAt(index)) % 9973;
+  }
+
+  return hash;
+}
+
+function buildSignalBars(seed, totalBars = 18) {
+  const hash = hashEventSeed(seed);
+
+  return Array.from({ length: totalBars }, (_, index) => {
+    const barSeed = (hash + index * 97) % 11;
+    return {
+      height: 28 + (barSeed % 6) * 6,
+      strong: (index + 1) % 5 === 0,
+    };
+  });
+}
+
+function FieldRow({ label, value }) {
+  return (
+    <div className="signal-record__field">
+      <span className="signal-record__label">{label}</span>
+      <span className="signal-record__leader" aria-hidden="true" />
+      <span className="signal-record__value">{value}</span>
+    </div>
+  );
+}
+
+function SignalLogSection({ onArchiveClick }) {
+  return (
+    <section className="signal-log" aria-labelledby="signal-log-title">
+      <div className="signal-log__shell">
+        <header className="signal-log__header">
+          <p className="signal-log__eyebrow">Signal Log · Chapter Activity</p>
+          <h2 id="signal-log-title">Event records</h2>
+          <p className="signal-log__intro">
+            A flat record of the chapter's current events, formatted like a technical
+            archive sheet for fast scanning and clear status checks.
+          </p>
+        </header>
+
+        <div className="signal-log__rows">
+          {featuredEventRecords.map((event) => (
+            <Link
+              key={event.slug}
+              to={`/events/${event.slug}`}
+              className={`signal-record signal-record--link ${event.mode === "pending" ? "signal-record--pending" : ""}`}
+            >
+              <div className="signal-record__media">
+                <div className={`signal-record__mounts ${event.mode === "flagship" ? "signal-record__mounts--flagship" : ""}`} aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+
+                {event.image ? (
+                  <img src={event.image} alt={event.alt} className="signal-record__image" loading="lazy" />
+                ) : (
+                  <div className="signal-record__poster-placeholder">POSTER PENDING</div>
+                )}
+              </div>
+
+              <div className="signal-record__content">
+                <div className="signal-record__meta">
+                  <span className={`signal-record__tag ${event.mode === "flagship" ? "signal-record__tag--flagship" : "signal-record__tag--pending"}`}>
+                    {event.tag}
+                  </span>
+                </div>
+
+                <h3 className="signal-record__title">{event.title}</h3>
+
+                <div className="signal-record__fields">
+                  <FieldRow label="DATE" value={event.date} />
+                  <FieldRow label="VENUE" value={event.venue} />
+                </div>
+
+                <p className="signal-record__description">{event.description}</p>
+
+                <div className="signal-record__idstrip" aria-label={`${event.title} signal id strip`}>
+                  {buildSignalBars(event.slug).map((bar, barIndex) => (
+                    <span
+                      key={`${event.slug}-${barIndex}`}
+                      className={`signal-record__bar ${bar.strong && event.mode === "flagship" ? "signal-record__bar--accent" : ""}`}
+                      style={{ height: `${bar.height}%` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <button type="button" className="signal-record__archive-link" onClick={onArchiveClick}>
+          View full event archive →
+        </button>
+      </div>
+    </section>
+  );
+}
 
 function EventModal({ event, onClose }) {
   useEffect(() => {
@@ -117,38 +226,18 @@ function EventModal({ event, onClose }) {
 
 function EventCard({ event, index, onSelect }) {
   const imageUrl = event.image && event.image.asset ? urlFor(event.image).url() : null;
-  const [dragStart, setDragStart] = useState(null);
-
-  const handleMouseDown = (e) => {
-    setDragStart({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleClick = (e) => {
-    if (dragStart) {
-      const dx = Math.abs(e.clientX - dragStart.x);
-      const dy = Math.abs(e.clientY - dragStart.y);
-      if (dx > 6 || dy > 6) {
-        return;
-      }
-    }
-    if (onSelect) onSelect(event);
-  };
+  const slug = getEventSlug(event);
+  const primaryCategory = event.categories?.[0] || event.tags?.[0] || "Event";
+  const formattedDate = event.date
+    ? new Date(event.date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Date pending";
 
   return (
-    <article
-      className="event-slide"
-      onMouseDown={handleMouseDown}
-      onClick={handleClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if ((e.key === "Enter" || e.key === " ") && onSelect) {
-          e.preventDefault();
-          onSelect(event);
-        }
-      }}
-      aria-label={`View details for ${event.title || `Event ${index + 1}`}`}
-    >
+    <Link to={`/events/${slug}`} className="event-slide event-slide--link" aria-label={`Open ${event.title || `Event ${index + 1}`}`}>
       <div className="event-slide__frame">
         {imageUrl && (
           <img
@@ -159,10 +248,15 @@ function EventCard({ event, index, onSelect }) {
           />
         )}
         <div className="event-slide__hover-overlay">
-          <span className="event-slide__hover-pill">View Details</span>
+          <div className="event-slide__hover-copy">
+            <span className="event-slide__hover-pill">Open record</span>
+            <strong>{event.title || `Event ${index + 1}`}</strong>
+            <span>{formattedDate}</span>
+            <span>{primaryCategory}</span>
+          </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -254,7 +348,6 @@ function EventCarousel({ title, events, onSelect }) {
 export default function AllEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -285,6 +378,14 @@ export default function AllEvents() {
     return new Date(event.date) >= today;
   });
   const pastEvents = events.filter((event) => event.date && new Date(event.date) < today);
+
+  const handleArchiveClick = () => {
+    const archiveSection = document.querySelector(".events-content");
+    if (!archiveSection) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    archiveSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  };
 
   return (
     <main className="events-page">
@@ -323,23 +424,21 @@ export default function AllEvents() {
         </div>
       </section>
 
+      <SignalLogSection onArchiveClick={handleArchiveClick} />
+
       <section className="events-content">
         <div className="events-shell">
           <EventCarousel
             title="Upcoming Events"
             events={upcomingEvents}
-            onSelect={setSelectedEvent}
           />
 
           <EventCarousel
             title="Past Events"
             events={pastEvents.length ? pastEvents : events}
-            onSelect={setSelectedEvent}
           />
         </div>
       </section>
-
-      <EventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
     </main>
   );
 }
