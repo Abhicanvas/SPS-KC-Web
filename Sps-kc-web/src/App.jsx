@@ -16,6 +16,8 @@ import Awards from "./components/Awards/award";
 import Achievements from "./components/Awards/achievements";
 import PastTeam from "./components/Execom/pastTeam";
 import Team from "./components/Execom/team";
+import BlogList from "./components/Blog/blog";
+import BlogDetail from "./components/Blog/blogDetail";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -176,6 +178,32 @@ function App() {
                   url={getFullUrl("/newsletter")}
                 />
                 <Newsletter />
+              </>
+            }
+          />
+          <Route
+            path="/blog"
+            element={
+              <>
+                <SEO
+                  title="Blog"
+                  description="Latest stories, insights, and updates from IEEE SPS Kerala Chapter."
+                  url={getFullUrl("/blog")}
+                />
+                <BlogList />
+              </>
+            }
+          />
+          <Route
+            path="/blog/:slug"
+            element={
+              <>
+                <SEO
+                  title="Blog Post"
+                  description="Read more on our blog."
+                  url={getFullUrl("/blog")}
+                />
+                <BlogDetail />
               </>
             }
           />
