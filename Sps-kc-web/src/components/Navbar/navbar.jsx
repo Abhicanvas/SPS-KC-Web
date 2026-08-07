@@ -84,6 +84,9 @@ export default function Navbar() {
             <Link to="/awards">Awards</Link>
           </li>
           <li>
+            <Link to="/blog">Blog</Link>
+          </li>
+          <li>
             <Link to="/achievements">Achievements</Link>
           </li>
           <li className="nav-cta-wrap">
