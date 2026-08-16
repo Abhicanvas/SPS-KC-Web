@@ -303,14 +303,16 @@ function EventCarousel({ title, events, onSelect }) {
           breakpoint: 768,
           settings: {
             slidesToShow: 1,
-            centerPadding: "20%",
+            centerMode: false,
+            centerPadding: "0px",
           },
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            centerPadding: "18%",
+            centerMode: false,
+            centerPadding: "0px",
           },
         },
       ],
