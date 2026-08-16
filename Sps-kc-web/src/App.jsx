@@ -225,11 +225,12 @@ function App() {
             element={
               <>
                 <SEO
-                  title="Awards"
-                  description="Recognition and awards received by IEEE SPS Kerala Chapter members and the chapter itself."
+                  title="Awards & Recognition"
+                  description="A photographic archive of IEEE SPS Kerala Chapter awards, recognitions, and yearly highlights."
                   url={getFullUrl("/awards")}
                 />
                 <Awards />
+                <Footer />
               </>
             }
           />
@@ -243,6 +244,7 @@ function App() {
                   url={getFullUrl("/achievements")}
                 />
                 <Achievements />
+                <Footer />
               </>
             }
           />

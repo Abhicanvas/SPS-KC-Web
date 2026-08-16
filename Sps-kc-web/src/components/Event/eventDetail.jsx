@@ -172,21 +172,6 @@ export default function EventDetailPage() {
               <p>{detailText}</p>
             </div>
 
-            <div className="event-detail-section">
-              <h2>Details</h2>
-              <div className="event-detail-tags">
-                {metaCategories.length > 0 ? (
-                  metaCategories.map((item) => (
-                    <span key={item} className="event-detail-tag">
-                      <Tag size={12} />
-                      {item}
-                    </span>
-                  ))
-                ) : (
-                  <span className="event-detail-tag event-detail-tag--muted">No additional details yet</span>
-                )}
-              </div>
-            </div>
 
             {isFlagship ? (
               <div className="event-detail-section">

@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Award as AwardIcon, Sparkles, UserRound } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
 import "./awards.css";
 
-// Icon mapping for lucide-react
 const iconMap = {
   Award: AwardIcon,
   Sparkles,
@@ -12,12 +18,21 @@ const iconMap = {
 };
 
 const chapterAffiliation = "IEEE SPS Kerala Chapter";
+const heroImage = "/img/events/gal1.webp";
+const defaultYears = [2025, 2024];
+const socialLinks = [
+  { label: "X", href: "https://x.com/ieeespskerala", icon: faXTwitter },
+  { label: "Facebook", href: "https://www.facebook.com/ieeespskerala", icon: faFacebookF },
+  { label: "Instagram", href: "https://www.instagram.com/ieeespskerala", icon: faInstagram },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/ieee-sps-kerala-chapter",
+    icon: faLinkedinIn,
+  },
+];
 
 const { projectId, dataset } = client.config();
-const builder =
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset })
-    : imageUrlBuilder(client);
+const builder = projectId && dataset ? imageUrlBuilder({ projectId, dataset }) : imageUrlBuilder(client);
 
 function urlFor(source) {
   return builder.image(source).url();
@@ -46,6 +61,28 @@ function groupAwardsByYear(items) {
   }, {});
 }
 
+function buildYearCards(year, awardsForYear) {
+  const cards = [...awardsForYear];
+
+  if (cards.length < 6) {
+    const remainingSlots = 6 - cards.length;
+
+    for (let index = 0; index < remainingSlots; index += 1) {
+      cards.push({
+        _id: `placeholder-${year}-${index}`,
+        year,
+        name: `Award spotlight ${index + 1}`,
+        recipient: "Placeholder image slot",
+        description: "Reserve this tile for a future award image or recognition poster.",
+        icon: "Sparkles",
+        isPlaceholder: true,
+      });
+    }
+  }
+
+  return cards;
+}
+
 function Awards() {
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,14 +92,14 @@ function Awards() {
     client
       .fetch(
         `*[_type == "award" && defined(name)] | order(year desc) {
-      _id,
-      name,
-      recipient,
-      year,
-      description,
-      icon,
-      image
-    }`
+          _id,
+          name,
+          recipient,
+          year,
+          description,
+          icon,
+          image
+        }`
       )
       .then((data) => {
         setAwards(data);
@@ -76,53 +113,91 @@ function Awards() {
       });
   }, []);
 
+  const yearGroups = useMemo(() => {
+    const awardsByYear = groupAwardsByYear(awards);
+    const fetchedYears = Object.keys(awardsByYear)
+      .map((year) => Number(year))
+      .filter((year) => Number.isFinite(year));
+
+    const years = Array.from(new Set([...defaultYears, ...fetchedYears])).sort((yearA, yearB) => yearB - yearA);
+
+    return years.map((year) => ({
+      year,
+      awards: buildYearCards(year, awardsByYear[year] || []),
+    }));
+  }, [awards]);
+
   return (
     <main className="awards-page">
-      <div className="awards-shell">
-        <header className="awards-hero">
-          <div className="awards-hero-inner">
-            <p className="awards-eyebrow">Awards Archive</p>
-            <h1>IEEE SPS Kerala Chapter Awards</h1>
-            <p>
-              A reverse-chronological archive of chapter honors, with each
-              recipient presented as a single card to keep the recognition
-              focused, clear, and celebratory.
-            </p>
-          </div>
-        </header>
+      <header className="awards-hero">
+        <div className="awards-hero__backdrop" aria-hidden="true" />
+        <img
+          className="awards-hero__image"
+          src={heroImage}
+          alt="IEEE SPS Kerala Chapter members in a conference room"
+        />
 
-        {loading ? (
-          <div className="awards-loading">Loading awards...</div>
-        ) : error ? (
-          <div className="awards-empty">{error}</div>
-        ) : awards.length === 0 ? (
-          <div className="awards-empty">No awards have been published yet.</div>
-        ) : (
-          <div className="awards-archive">
-            {Object.entries(groupAwardsByYear(awards))
-              .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
-              .map(([year, yearAwards]) => (
-                <section className="award-year-group" key={year} aria-labelledby={`award-year-${year}`}>
-                  <header className="award-year-header">
-                    <div>
-                      <p className="award-year-kicker">Year</p>
-                      <h2 id={`award-year-${year}`} className="award-year-number">
-                        {year}
-                      </h2>
-                    </div>
-                    <span className="award-year-divider" aria-hidden="true" />
-                  </header>
+        <div className="awards-shell awards-hero__shell">
+          <div className="awards-hero__inner">
+            <div className="awards-hero__copy">
+              <p className="awards-hero__eyebrow">Awards archive</p>
+              <h1 className="awards-hero__title">
+                <span>IEEE</span>
+                <span>SPS KERALA CHAPTER</span>
+              </h1>
+              <p className="awards-hero__summary">
+                A photographic archive of chapter recognition, member excellence, and society milestones across the years.
+              </p>
+            </div>
 
-                  <div className="awards-grid" aria-label={`Awards for ${year}`}>
-                    {yearAwards.map((award) => (
-                      <AwardCard key={award._id} award={award} />
-                    ))}
-                  </div>
-                </section>
+            <div className="awards-hero__socials" aria-label="Social links">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  className="awards-hero__social"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                >
+                  <FontAwesomeIcon icon={link.icon} />
+                </a>
               ))}
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+
+        <div className="awards-page__accent awards-page__accent--bottom" aria-hidden="true" />
+      </header>
+
+      <section className="awards-shell awards-content" aria-labelledby="awards-recognition-title">
+        <div className="awards-section-heading">
+          <p className="awards-section-heading__eyebrow">Section Awards</p>
+          <h2 id="awards-recognition-title">Awards &amp; Recognition</h2>
+          <p className="awards-section-heading__copy">
+            A clean, chronological showcase of awards by year, with room for future recognitions and archived highlights.
+          </p>
+        </div>
+
+        {loading ? <div className="awards-loading">Loading awards archive...</div> : null}
+        {error ? <div className="awards-empty">{error}</div> : null}
+
+        <div className="award-year-groups">
+          {yearGroups.map(({ year, awards: yearAwards }) => (
+            <section className="award-year-group" key={year} aria-labelledby={`award-year-${year}`}>
+              <h3 id={`award-year-${year}`} className="award-year-title">
+                Awards {year}
+              </h3>
+
+              <div className="awards-grid" aria-label={`Awards for ${year}`}>
+                {yearAwards.map((award) => (
+                  <AwardCard key={award._id} award={award} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
@@ -130,23 +205,29 @@ function Awards() {
 function AwardCard({ award }) {
   const IconComponent = iconMap[award.icon] || AwardIcon;
   const initials = getInitials(award.recipient || award.name || "AW");
+  const isPlaceholder = Boolean(award.isPlaceholder);
 
   return (
-    <article className="award-card">
-      {award.image ? (
-        <div className="award-card__media">
+    <article className={`award-card${isPlaceholder ? " award-card--placeholder" : ""}`}>
+      <div className="award-card__media">
+        {award.image ? (
           <img
             src={urlFor(award.image)}
-            alt={award.name}
+            alt={award.name || award.recipient || "Award image"}
             className="award-card__image"
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src =
-                "https://placehold.co/800x480/EAF1FC/1A56DB?text=Award+Image";
+              e.currentTarget.src = "https://placehold.co/800x800/A8E6CF/1B5FA8?text=Award+Image";
             }}
           />
-        </div>
-      ) : null}
+        ) : (
+          <div className="award-card__placeholder" aria-hidden="true">
+            <div className="award-card__placeholder-glow" />
+            <span>{award.year || "Award"}</span>
+          </div>
+        )}
+      </div>
+
       <div className="award-card__header">
         <div className="award-card__avatar" aria-hidden="true">
           <span>{initials}</span>
@@ -154,15 +235,14 @@ function AwardCard({ award }) {
         <div className="award-card__heading">
           <p className="award-card__badge">
             <IconComponent size={14} aria-hidden="true" />
-            <span>{award.name}</span>
+            <span>{isPlaceholder ? "Placeholder" : award.name}</span>
           </p>
-          <h3 className="award-card__title">{award.recipient}</h3>
+          <h4 className="award-card__title">{isPlaceholder ? "Placeholder image slot" : award.recipient}</h4>
           <p className="award-card__affiliation">{chapterAffiliation}</p>
         </div>
       </div>
-      {award.description ? (
-        <p className="award-card__description">{award.description}</p>
-      ) : null}
+
+      {/* Description removed per request (hide brief text under cards) */}
     </article>
   );
 }
