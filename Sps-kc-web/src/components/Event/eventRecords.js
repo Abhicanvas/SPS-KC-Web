@@ -4,13 +4,13 @@ export const featuredEventRecords = [
     title: "SIGNAL 4.0",
     tag: "FLAGSHIP",
     mode: "flagship",
-    date: "24–26 OCT 2025",
-    venue: "KERALA, INDIA · IN-PERSON",
+    date: "21–22 FEB 2026",
+    venue: "TKM-COLLEGE OF ENGINEERING, KOLLAM · IN-PERSON",
     description:
       "The chapter's flagship three-day gathering brings keynote sessions, hands-on tracks, and networking together for signal-processing students across Kerala.",
     history:
-      "SIGNAL 4.0 is the SPS Kerala Chapter's biggest event of the cycle. The program is designed as a three-day chapter anchor, combining keynote talks, hands-on tracks, and peer networking for students, researchers, and professionals across Kerala.",
-    highlights: ["3-day event", "Fully in-person", "Chapter flagship"],
+      "SIGNAL 4.0, the flagship event of the IEEE SPS Kerala Chapter, returns with greater energy and excitement, taking place at TKM College of Engineering, Kollam. The fourth edition is a two-day blend of technology, inspiration, and collaboration — spanning hands-on workshops (OpenCV, Drone, ESP NOW, Musical Signal Processing, STM32, RISC-V with FPGA, LT Spice), talk sessions (AI Impact, LinkedIn, Women Empowerment, Prompt Engineering), and special events including a Gala Night, Cultural Eve with live performances, and a motivational session with RJ Sharath.",
+    highlights: ["2-day event", "7 hands-on workshops","5 talk sessions", "Chapter flagship"],
     image: "/img/main-event/signal.png",
     alt: "SIGNAL 4.0 main event poster",
   },
@@ -57,7 +57,7 @@ export const featuredEventRecords = [
   },
   {
     slug: "sign2sound",
-    title: "SIGN2SOUND Grand Finale",
+    title: "SIGN2SOUND ",
     tag: "FLAGSHIP · INNOVATION CHALLENGE · NATIONAL LEVEL · TECHNICAL",
     mode: "flagship",
     date: "27 JUN 2026",
