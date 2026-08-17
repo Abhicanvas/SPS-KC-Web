@@ -580,7 +580,8 @@
 @media (max-width: 768px) {
   .hero-section {
     padding-top: 5.5rem;
-    min-height: auto;
+    min-height: 82vh;
+    height: 82vh;
   }
 
   .hero-grid,
