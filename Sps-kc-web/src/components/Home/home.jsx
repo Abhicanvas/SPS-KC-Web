@@ -38,30 +38,30 @@ const activities = [
 
 const testimonials = [
   {
-    author: "Ananya P.",
-    role: "Student Member",
-    text: "A chapter that consistently turns ideas into practical, visible impact for the community.",
+    author: "Resha Fathima",
+    role: "GEC Thrissur",
+    text: "Some of the best memories aren't from the events themselves, but from the people who made them unforgettable.",
   },
   {
-    author: "Rohit K.",
-    role: "Faculty Advisor",
-    text: "The energy around events, mentorship, and technical learning is always constructive and focused.",
+    author: "Vignesh Murali",
+    role: "FISAT, Angamaly",
+    text: "Looking back, it's not just the milestones I remember. It's the laughter, teamwork, and the people who turned every experience into a memory.",
   },
   {
-    author: "Mid Card",
-    role: "Featured Voice",
-    text: "IEEE SPS Kerala Chapter creates a space where students and professionals can grow together.",
+    author: "George Thomas",
+    role: " MEC Thrikkakara",
+    text: "Beyond what any textbook could teach, SPS Kerala Chapter has been a truly unforgettable chapter in my life",
     featured: true,
   },
   {
-    author: "Meera S.",
-    role: "Volunteer",
-    text: "The team balances institutional quality with a genuinely welcoming chapter culture.",
+    author: "Abel Jose",
+    role: "An Earthling",
+    text: "Curiosity brought me here. The community made me stay. One thing I've learned is to be kind to everyone, it's their first time on Earth too.",
   },
   {
-    author: "Arjun V.",
-    role: "Alumnus",
-    text: "The chapter keeps the signal processing community connected across campuses and industry.",
+    author: "JIBIN WILSON",
+    role: "MBITS Kothamangalam",
+    text: "What started with meetings and responsibilities became something much more, a circle of people who made every moment meaningful and every memory worth keeping.",
   },
 ];
 
@@ -111,7 +111,8 @@ export default function HomePage() {
               </div>
             </div>
             <h1>
-              <strong>IEEE</strong> SPS KERALA CHAPTER
+              <strong>IEEE SPS</strong>
+              <span>KERALA CHAPTER</span>
             </h1>
             <p>
               Clean, professional, and community-first signal processing leadership for Kerala.

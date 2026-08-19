@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: #ffffff;
   color: #1b5fa8;
+  font-family: Arial, sans-serif;
   overflow: hidden;
 }
 
@@ -269,25 +270,7 @@
 
 .award-card__header {
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.9rem;
   padding: 0 0.25rem;
-}
-
-.award-card__avatar {
-  flex: 0 0 auto;
-  width: 2.9rem;
-  height: 2.9rem;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #1b5fa8;
-  background: rgba(27, 95, 168, 0.08);
-  font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
 }
 
 .award-card__heading {
@@ -297,15 +280,12 @@
 }
 
 .award-card__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  width: fit-content;
+  display: block;
+  width: 100%;
   margin: 0;
-  padding: 0.3rem 0.62rem;
-  border-radius: 999px;
+  padding: 0 0 0.45rem;
+  border-bottom: 2px solid rgba(27, 95, 168, 0.16);
   color: #1b5fa8;
-  background: rgba(168, 230, 207, 0.2);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -333,10 +313,6 @@
   padding: 0 0.25rem 0.1rem;
   color: rgba(27, 95, 168, 0.8);
   line-height: 1.7;
-}
-
-.award-card--placeholder .award-card__badge {
-  background: rgba(11, 110, 79, 0.14);
 }
 
 @media (max-width: 1024px) {

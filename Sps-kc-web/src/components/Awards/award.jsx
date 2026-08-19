@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Award as AwardIcon, Sparkles, UserRound } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -10,12 +9,6 @@ import {
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
 import "./awards.css";
-
-const iconMap = {
-  Award: AwardIcon,
-  Sparkles,
-  UserRound,
-};
 
 const chapterAffiliation = "IEEE SPS Kerala Chapter";
 const heroImage = "/img/events/gal1.webp";
@@ -36,16 +29,6 @@ const builder = projectId && dataset ? imageUrlBuilder({ projectId, dataset }) :
 
 function urlFor(source) {
   return builder.image(source).url();
-}
-
-function getInitials(name) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
 }
 
 function groupAwardsByYear(items) {
@@ -74,7 +57,6 @@ function buildYearCards(year, awardsForYear) {
         name: `Award spotlight ${index + 1}`,
         recipient: "Placeholder image slot",
         description: "Reserve this tile for a future award image or recognition poster.",
-        icon: "Sparkles",
         isPlaceholder: true,
       });
     }
@@ -97,7 +79,6 @@ function Awards() {
           recipient,
           year,
           description,
-          icon,
           image
         }`
       )
@@ -203,8 +184,6 @@ function Awards() {
 }
 
 function AwardCard({ award }) {
-  const IconComponent = iconMap[award.icon] || AwardIcon;
-  const initials = getInitials(award.recipient || award.name || "AW");
   const isPlaceholder = Boolean(award.isPlaceholder);
 
   return (
@@ -229,12 +208,8 @@ function AwardCard({ award }) {
       </div>
 
       <div className="award-card__header">
-        <div className="award-card__avatar" aria-hidden="true">
-          <span>{initials}</span>
-        </div>
         <div className="award-card__heading">
           <p className="award-card__badge">
-            <IconComponent size={14} aria-hidden="true" />
             <span>{isPlaceholder ? "Placeholder" : award.name}</span>
           </p>
           <h4 className="award-card__title">{isPlaceholder ? "Placeholder image slot" : award.recipient}</h4>

@@ -138,11 +138,7 @@ export default function EventDetailPage() {
           </div>
           <h1>{title}</h1>
           <p className="event-detail__summary">
-            {isFlagship
-              ? "Flagship chapter record with history, metadata, and poster art preserved as an openable archive page."
-              : isPending
-                ? "Placeholder record with poster-first presentation until final event details are supplied."
-                : "Poster-first event record with title, metadata, and hover-friendly poster framing preserved as an openable archive page."}
+            {event.description || "A record of the chapter's events, initiatives, and activities."}
           </p>
         </header>
 

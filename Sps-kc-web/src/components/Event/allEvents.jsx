@@ -71,11 +71,11 @@ function SignalLogSection({ onArchiveClick }) {
     <section className="signal-log" aria-labelledby="signal-log-title">
       <div className="signal-log__shell">
         <header className="signal-log__header">
-          <p className="signal-log__eyebrow">Signal Log · Chapter Activity</p>
-          <h2 id="signal-log-title">Event records</h2>
+          <p className="signal-log__eyebrow">Chapter Activity</p>
+          <h2 id="signal-log-title">Main Events</h2>
           <p className="signal-log__intro">
-            A flat record of the chapter's current events, formatted like a technical
-            archive sheet for fast scanning and clear status checks.
+            A record of the chapter’s flagship programs, technical initiatives, and collaborative events—bringing together innovation, learning, and the signal-processing community across Kerala.
+
           </p>
         </header>
 

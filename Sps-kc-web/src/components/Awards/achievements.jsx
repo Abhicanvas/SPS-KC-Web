@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Award as AwardIcon, Calendar, Sparkles, UserRound } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -10,12 +9,6 @@ import {
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
 import "./awards.css";
-
-const iconMap = {
-  Award: AwardIcon,
-  Sparkles,
-  UserRound,
-};
 
 const chapterAffiliation = "IEEE SPS Kerala Chapter";
 const heroImage = "/img/events/gal1.webp";
@@ -35,16 +28,6 @@ const builder = projectId && dataset ? imageUrlBuilder({ projectId, dataset }) :
 
 function urlFor(source) {
   return builder.image(source).url();
-}
-
-function getInitials(name) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
 }
 
 function getYearLabel(date) {
@@ -80,7 +63,6 @@ function Achievements() {
           name,
           date,
           description,
-          icon,
           image
         }`
       )
@@ -186,8 +168,6 @@ function Achievements() {
 }
 
 function AchievementCard({ achievement }) {
-  const IconComponent = iconMap[achievement.icon] || AwardIcon;
-  const initials = getInitials(achievement.name || "ACH");
   const formattedDate = achievement.date
     ? new Date(achievement.date).toLocaleDateString("en-US", {
         year: "numeric",
@@ -217,12 +197,8 @@ function AchievementCard({ achievement }) {
       </div>
 
       <div className="award-card__header">
-        <div className="award-card__avatar" aria-hidden="true">
-          <span>{initials}</span>
-        </div>
         <div className="award-card__heading">
           <p className="award-card__badge">
-            <IconComponent size={14} aria-hidden="true" />
             <span>{achievement.name}</span>
           </p>
           <h4 className="award-card__title">{achievement.name}</h4>
@@ -230,14 +206,7 @@ function AchievementCard({ achievement }) {
         </div>
       </div>
 
-      <div className="award-card__meta">
-        {formattedDate ? (
-          <p className="award-card__meta-row">
-            <Calendar size={16} />
-            <span>{formattedDate}</span>
-          </p>
-        ) : null}
-      </div>
+      {formattedDate ? <p className="award-card__meta-row">{formattedDate}</p> : null}
 
       {/* Description removed per request (hide brief text under cards) */}
     </article>
