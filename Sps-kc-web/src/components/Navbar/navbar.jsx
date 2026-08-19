@@ -14,7 +14,7 @@ const execomItems = [
 
 const resourcesItems = [
   { label: "Blog", to: "/blog" },
-  { label: "Newsletter", to: "/newsletter" },
+  // { label: "Newsletter", to: "/newsletter" },
   { label: "Achievements", to: "/achievements" },
 ];
 
