@@ -203,7 +203,7 @@
 /* ═══════════════════════════════════════════
    Mobile / Tablet
    ═══════════════════════════════════════════ */
-@media (max-width: 980px) {
+@media (max-width: 850px) {
   .menu-icon {
     display: inline-flex;
   }
@@ -240,7 +240,7 @@
   }
 
   .nav-cta-wrap {
-    padding-top: 0.25rem;
+    display: none;
   }
 
   .nav-cta {
