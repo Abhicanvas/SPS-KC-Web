@@ -168,6 +168,14 @@ export default function EventDetailPage() {
               <p>{detailText}</p>
             </div>
 
+            {localRecord?.details ? (
+              <div className="event-detail-section">
+                <h2>Details</h2>
+                {Object.entries(localRecord.details).map(([label, value]) => (
+                  <p key={label}><strong>{label.replace(/([A-Z])/g, " $1")}:</strong> {value}</p>
+                ))}
+              </div>
+            ) : null}
 
             {isFlagship ? (
               <div className="event-detail-section">

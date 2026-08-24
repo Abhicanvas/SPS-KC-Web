@@ -76,7 +76,51 @@ export const featuredEventRecords = [
     image: "/img/main-event/s2s.png",
     alt: "SIGN2SOUND Grand Finale poster",
   },
-  
+  {
+    slug: "IIIT internship",
+    title: "IIIT Internship",
+    tag: "INTERNSHIP · NATIONAL LEVEL · TECHNICAL",
+    mode: "Internship",
+    date: "15–17 JUN 2026 (OFFLINE) + ONLINE PHASE",
+    venue: "KOTTAYAM, KERALA · HYBRID",
+    description:
+      "A one-month hybrid internship building industry-relevant skills across cloud computing, RAG, and web development through an offline bootcamp, online learning, mentorship, and a capstone project.",
+    history:
+      "This one-month hybrid internship gave students industry-relevant skills across cloud computing, RAG, and web development. The offline bootcamp at IIIT Kottayam covered cloud fundamentals, RAG pipelines, HTML/CSS, cloud infrastructure (VPC, IAM, firewalls), JavaScript, Docker, Kubernetes, and serverless computing with AWS Lambda. The program then continued online with advanced web development, APIs, deployment, and a capstone project under ongoing mentorship.",
+    details: {
+      venue: "IIIT Kottayam (offline) + Online",
+      host: "IEEE SPS Kerala Chapter, with Gyaan Innovation Lab and IIIT Kottayam",
+      topics: "Cloud Computing, Retrieval-Augmented Generation (RAG), Web Development",
+      level: "National Level · Technical",
+    },
+    highlights: ["1-month hybrid program", "3-day offline bootcamp + online phase", "Capstone project with mentorship"],
+    image: "/img/main-event/IIITintern.jpeg",
+    alt: "Cloud Computing Internship poster",
+  },
+  {
+    slug: "rescue-link",
+    title: "RescueLink",
+    tag: " HUMANITARIAN TECHNOLOGY · MULTI-PHASE INITIATIVE",
+    mode: "Project",
+    date: "MAY 2025 – ONGOING",
+    venue: "THIRUVANANTHAPURAM / POONJAR, KERALA · IN-PERSON",
+    description:
+      "A humanitarian technology initiative building an affordable, low-power, decentralized SOS communication system for disaster-prone areas.",
+    history:
+      "RescueLink is IEEE SPS Kerala Chapter's humanitarian technology initiative to build an affordable, low-power, decentralized SOS communication system for disaster-prone areas. It began with a kickoff workshop on 31 May 2025 at ICFOSS, Thiruvananthapuram, led by Dr. Sunil T T, Director of ICFOSS, where hardware and software teams explored LoRa-based emergency response solutions. Phase 1 implementation followed from 1–4 August 2025 at College of Engineering, Poonjar, where teams deployed five Proofs of Concept for LoRa communication alongside a real-time monitoring dashboard. Phase 2, focused on strengthening resilience and scalability, is planned for October 2025.",
+    details: {
+      goal: "Build an affordable, decentralized SOS communication system (LoRaWAN-based) for disaster-hit areas",
+      kickoffWorkshop: "31 May 2025 — ICFOSS, Thiruvananthapuram (jointly with ICFOSS)",
+      phase1: "1–4 August 2025 — College of Engineering, Poonjar",
+      phase2: "Planned October 2025",
+      host: "IEEE SPS Kerala Chapter",
+      coordinator: "Govind S Warrier",
+      attendance: "Kickoff — 12 IEEE Members · Phase 1 — 15 IEEE Members",
+    },
+    highlights: ["Multi-phase humanitarian initiative", "LoRaWAN-based disaster communication tech", "5 PoCs deployed in Phase 1"],
+    image: "/img/main-event/resculink.jpeg",
+    alt: "RescueLink SOS Communication Initiative poster",
+  },
 ];
 
 export function getFeaturedEventRecord(slug) {
