@@ -19,11 +19,28 @@ import Team from "./components/Execom/team";
 import BlogList from "./components/Blog/blog";
 import BlogDetail from "./components/Blog/blogDetail";
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
+function ScrollToLocation() {
+  const { pathname, hash } = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return undefined;
+    }
+
+    const target = document.getElementById(hash.slice(1));
+
+    if (!target) {
+      return undefined;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [pathname, hash]);
+
   return null;
 }
 
@@ -31,7 +48,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <ScrollToTop />
+        <ScrollToLocation />
         <Navbar />
         <Routes>
           <Route

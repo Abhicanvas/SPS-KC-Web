@@ -92,6 +92,7 @@ const socialLinks = [
 ];
 
 export default function HomePage() {
+  
   return (
     <main className="home-page">
       <section id="home" className="hero-section">
@@ -111,8 +112,7 @@ export default function HomePage() {
               </div>
             </div>
             <h1>
-              <strong>IEEE SPS</strong>
-              <span>KERALA CHAPTER</span>
+              <strong>IEEE</strong> SPS KERALA CHAPTER
             </h1>
             <p>
               Clean, professional, and community-first signal processing leadership for Kerala.

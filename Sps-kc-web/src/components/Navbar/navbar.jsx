@@ -12,12 +12,6 @@ const execomItems = [
   { label: "Execom 2021", to: "/execom-21" },
 ];
 
-const resourcesItems = [
-  { label: "Blog", to: "/blog" },
-  // { label: "Newsletter", to: "/newsletter" },
-  { label: "Achievements", to: "/achievements" },
-];
-
 const joinUsHref =
   "https://www.ieee.org/membership-catalog/productdetail/showProductDetailPage.html?product=MEMSP001&refProd=MEMSP001";
 
@@ -25,20 +19,14 @@ export default function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const resourcesRef = useRef(null);
 
   const isExecomRoute = location.pathname.startsWith("/execom") || location.pathname === "/team";
-  const isResourcesRoute = ["/blog", "/newsletter", "/achievements"].some((path) =>
-    location.pathname.startsWith(path)
-  );
 
   // Close everything on route change
   useEffect(() => {
     setIsOpen(false);
     setDropdownOpen(false);
-    setResourcesOpen(false);
   }, [location]);
 
   // Close dropdown when clicking outside
@@ -48,9 +36,6 @@ export default function Navbar() {
         setDropdownOpen(false);
       }
 
-      if (resourcesRef.current && !resourcesRef.current.contains(e.target)) {
-        setResourcesOpen(false);
-      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -72,11 +57,6 @@ export default function Navbar() {
           <li>
             <Link to="/" className={location.pathname === "/" ? "nav-link nav-link--active" : "nav-link"}>
               Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" className={location.pathname === "/about" ? "nav-link nav-link--active" : "nav-link"}>
-              About us
             </Link>
           </li>
 
@@ -111,29 +91,13 @@ export default function Navbar() {
               Events
             </Link>
           </li>
-          <li
-            className={`nav-dropdown${resourcesOpen ? " nav-dropdown--open" : ""}${isResourcesRoute ? " nav-dropdown--active" : ""}`}
-            ref={resourcesRef}
-          >
-            <button
-              type="button"
-              className="nav-dropdown__trigger"
-              onClick={() => setResourcesOpen((value) => !value)}
-              aria-expanded={resourcesOpen}
-              aria-haspopup="true"
+          <li>
+            <Link
+              to="/achievements"
+              className={location.pathname.startsWith("/achievements") ? "nav-link nav-link--active" : "nav-link"}
             >
-              Resources
-              <ChevronDown size={16} className="nav-dropdown__chevron" />
-            </button>
-            <ul className="nav-dropdown__menu">
-              {resourcesItems.map((item) => (
-                <li key={item.to}>
-                  <Link to={item.to} className="nav-dropdown__link">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+              Achievements
+            </Link>
           </li>
           <li>
             <Link to="/awards" className={location.pathname === "/awards" ? "nav-link nav-link--active" : "nav-link"}>
