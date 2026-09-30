@@ -58,7 +58,7 @@ export const featuredEventRecords = [
   {
     slug: "sign2sound",
     title: "SIGN2SOUND ",
-    tag: "FLAGSHIP · INNOVATION CHALLENGE · NATIONAL LEVEL · TECHNICAL",
+    tag: "FLAGSHIP · INNOVATION CHALLENGE · INTERNATIONAL LEVEL · TECHNICAL",
     mode: "flagship",
     date: "27 JUN 2026",
     venue: "THIRUVANANTHAPURAM, KERALA · IN-PERSON",
